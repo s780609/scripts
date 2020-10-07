@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="div">0</div>
+    <div id="div2"></div>
+    <script>
+      let div = document.getElementById("div");
+      let count = 0;
+      setInterval(() => {
+        count = count + 1;
+        div.innerText = count;
+      }, 1000);
+
+      const observer = new MutationObserver((mutations, observer) => {
+        observer.disconnect();
+        let div2 = document.getElementById("div2");
+        div2.innerText += ", observed : " +  div.innerText;
+        observer.observe(div, {characterData: true, attributes: true, childList: true, subtree: true});
+      });
+
+      observer.observe(div, {characterData: true, attributes: true, childList: true, subtree: true});
+    </script>
+  </body>
+</html>
